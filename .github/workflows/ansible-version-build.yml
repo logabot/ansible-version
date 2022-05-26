@@ -59,6 +59,10 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.branch }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Run Trivy vulnerability scanner
+        permissions:
+          id-token: write
+          contents: write              # This is required for actions/checkout@v1
+          security-events: write   # To upload sarif files
         uses: aquasecurity/trivy-action@2a2157eb22c08c9a1fac99263430307b8d1bc7a2
         with:
           image-ref: 'ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.branch }}'
