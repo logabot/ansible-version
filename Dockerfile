@@ -7,5 +7,7 @@ RUN \
 
 ARG ANSIBLE_VERSION=2.9.1
 ENV ANSIBLE_VERSION=${ANSIBLE_VERSION:-2.9.5}
+
 COPY requirement.txt .
+
 RUN pip3 install  --no-cache-dir -r requirement.txt "ansible==${ANSIBLE_VERSION}"
