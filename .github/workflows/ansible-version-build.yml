@@ -41,5 +41,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.get_tag.outputs.branch }}
+          tags: ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.branch }}
           labels: ${{ steps.meta.outputs.labels }}
