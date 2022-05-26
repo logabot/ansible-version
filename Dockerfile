@@ -6,4 +6,5 @@ RUN \
     rm -rf /var/cache/apt && rm -rf /var/lib/apt/lists
 
 ARG ANSIBLE_VERSION=2.9.1
-RUN pip3 install  --no-cache-dir "ansible==${ANSIBLE_VERSION}"
+COPY requirement.txt .
+RUN pip3 install  --no-cache-dir -r requirement.txt "ansible==${ANSIBLE_VERSION}"
