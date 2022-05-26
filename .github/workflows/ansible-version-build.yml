@@ -40,11 +40,11 @@ jobs:
         id: get_tag
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        env:
+          ANSIBLE_VERSION: ${{ steps.get_tag.outputs.branch }}'
         with:
           context: .
           push: true
-          build-args: |
-            'ANSIBLE_VERSION=${{ steps.get_tag.outputs.branch }}'
           tags: ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.branch }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Run Trivy vulnerability scanner
