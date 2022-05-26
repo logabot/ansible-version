@@ -3,6 +3,8 @@ on:
   push:
     tags:
       - v*
+    branches:
+      - dev
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -42,7 +44,7 @@ jobs:
           context: .
           push: true
           build-args:
-            - ANSIBLE_VERSION=${{ steps.get_tag.outputs.branch }}
+            - 'ANSIBLE_VERSION=${{ steps.get_tag.outputs.branch }}'
           tags: ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.branch }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Run Trivy vulnerability scanner
