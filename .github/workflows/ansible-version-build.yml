@@ -42,7 +42,7 @@ jobs:
         if: ${{ startsWith(steps.get_tag.outputs.branch, 'v') }}
         shell: bash
         run: |
-          ver=$(echo "${{ steps.get_tag.outputs.branch }}" | cut -d 'v' -f 2"); \
+          ver=$(echo "${{ steps.get_tag.outputs.branch }}" | cut -d 'v' -f 2); \
           echo "::set-output name=version::${ver}"
         id: get_ver
       - name: Build and push Docker image
