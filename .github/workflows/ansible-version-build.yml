@@ -39,8 +39,11 @@ jobs:
         run: echo "::set-output name=branch::${GITHUB_REF##*/}"
         id: get_tag
       - name: Get ansible version from tag
+        if: ${{ startsWith(steps.get_tag.outputs.branch, 'v') }}
         shell: bash
-        run: echo "::set-output name=version::${GITHUB_REF##*/:1}"
+        run: |
+          ver=$(echo "${{ steps.get_tag.outputs.branch }}" | cut -d 'v' -f 2"); \
+          echo "::set-output name=version::${ver}"
         id: get_ver
       - name: Build and push Docker image
         if: ${{ startsWith(steps.get_tag.outputs.branch, 'v') }}
