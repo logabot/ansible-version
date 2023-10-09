@@ -38,6 +38,10 @@ jobs:
         shell: bash
         run: echo "::set-output name=branch::${GITHUB_REF##*/}"
         id: get_tag
+      - name: Get ansible version from tag
+        shell: bash
+        run: echo "::set-output name=version::${GITHUB_REF##*/:1}"
+        id: get_ver
       - name: Build and push Docker image
         if: ${{ startsWith(steps.get_tag.outputs.branch, 'v') }}
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -45,7 +49,7 @@ jobs:
           context: .
           push: true
           build-args: |
-            ANSIBLE_VERSION=${{ steps.get_tag.outputs.branch }}
+            ANSIBLE_VERSION=${{ steps.get_ver.outputs.version }}
           tags: ghcr.io/${{ github.repository }}:${{ steps.get_tag.outputs.branch }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Build and push Docker image
