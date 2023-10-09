@@ -43,7 +43,7 @@ jobs:
       - name: Get ansible version
         shell: bash
         run: |
-          ver=$(echo "${{ steps.get_tag.outputs.branch }}); \
+          ver=$(echo "${{ steps.get_tag.outputs.branch }}"); \
           echo "::set-output name=version ${ver:1}"
         id: get_ver
       - name: Build and push Docker image
